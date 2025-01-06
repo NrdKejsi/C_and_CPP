@@ -1,0 +1,40 @@
+/*
+CH-230-A
+a10-p1.cpp
+Kejsi Nuredini
+knuredini@jacobs-university.de
+*/
+
+a) Entities like string, cout, endl and cin are identified in the iostream
+file under the std namespace. Because we are not using the namespace std::,
+the computer won't recognize which identifier we are using. Therefore the 
+compiler repeatedly shows the error unknown type name for string (since
+string is used as a data type), and undeclared identifer for cout, endl, 
+cin (they are objects within the std namespace).
+    - testcritter.cpp:11:2: error: unknown type name 'string'; did you mean 
+'std::string'?
+        string name;
+        ^~~~~~
+        std::string
+    - testcritter.cpp:14:2: error: use of undeclared identifier 'cout'; 
+      did you mean 'std::cout'?
+        cout << endl << "Please enter data: " << endl;
+        ^~~~
+        std::cout
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/
+iostream:53:33: note: 'std::cout' declared here extern _LIBCPP_FUNC_VIS
+ostream cout;
+These are just two of the errors printed. In order to fix the issues, we
+need to add the std:: in front of string, cin, cout and endl. That way our
+errors will disappear and our code will run smoothly.
+
+b) After fixing the issue above and deleting the Critter:: prefix from the 
+setHunger function, the error generated is as follows:
+Critter.cpp:11:2: error: use of undeclared identifier 'hunger'
+        hunger = newhunger;
+        ^
+1 error generated.
+The hunger property is declared inside the Critter structure. When we don't 
+specify the structure we are getting our variables from (in this case int
+hunger), the compiler will simply read a random variable without a data
+type. To fix the issue we just have to write the Critter prefix again.
